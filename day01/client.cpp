@@ -23,6 +23,7 @@ int main() {
     bzero(&buf, sizeof(buf));
     ssize_t read_bytes = read(sockfd, buf, sizeof(buf));
     printf("message from server: %s\n", buf);
-            
+    
+    close(sockfd);
     return 0;
 }
