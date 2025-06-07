@@ -8,10 +8,10 @@ CFLAGS=
 LDFLAGS=
 CC=g++
 
-server: server.cpp $(SERVER_SRC)
+$(server): server.cpp $(SERVER_SRC)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
-client: $(CLIENT_SRC)
+$(client): $(CLIENT_SRC)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 .PHONY:clean
