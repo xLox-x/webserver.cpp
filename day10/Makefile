@@ -1,16 +1,20 @@
 server=server.out
 client=client.out
-objects=$(server) $(client)
+threadTest=threadTest.out
+objects=$(server) $(client) $(threadTest)
 all:$(objects)
 SRC=$(wildcard src/*.cpp)
 CFLAGS=
-LDFLAGS=
+LDFLAGS=-pthread
 CC=g++
 
 $(server): server.cpp $(SRC)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 $(client): client.cpp $(SRC)
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
+$(threadTest): ThreadPoolTest.cpp src/ThreadPool.cpp
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 .PHONY:clean
