@@ -4,7 +4,6 @@
 #include <functional>
 #include "src/util.h"
 #include "src/Buffer.h"
-#include "src/InetAddress.h"
 #include "src/Socket.h"
 #include "src/ThreadPool.h"
 
@@ -13,6 +12,7 @@ using namespace std;
 void oneClient(int msgs, int wait){
     Socket *sock = new Socket();
     InetAddress *addr = new InetAddress("127.0.0.1", 1234);
+    // sock->setnonblocking(); 客户端使用阻塞式连接比较好，方便简单不容易出错
     sock->connect(addr);
 
     int sockfd = sock->getFd();
@@ -53,9 +53,9 @@ void oneClient(int msgs, int wait){
 }
 
 int main(int argc, char *argv[]) {
-    int threads = 20;
-    int msgs = 10;
-    int wait = 1;
+    int threads = 100;
+    int msgs = 100;
+    int wait = 0;
     int o;
     const char *optstring = "t:m:w:";
     while ((o = getopt(argc, argv, optstring)) != -1) {
