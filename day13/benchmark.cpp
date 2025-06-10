@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void oneClient(int msgs, int wait){
+void oneClient(int msgs, int wait, int id){
     Socket *sock = new Socket();
     InetAddress *addr = new InetAddress("127.0.0.1", 1234);
     // sock->setnonblocking(); 客户端使用阻塞式连接比较好，方便简单不容易出错
@@ -23,7 +23,9 @@ void oneClient(int msgs, int wait){
     sleep(wait);
     int count = 0;
     while(count < msgs){
-        sendBuffer->setBuf("I'm client!");
+        char str[80] = { 0 };
+        sprintf(str, "I'm client %d", id);
+        sendBuffer->setBuf(str);
         ssize_t write_bytes = write(sockfd, sendBuffer->c_str(), sendBuffer->size());
         if(write_bytes == -1){
             printf("socket already disconnected, can't write any more!\n");
@@ -77,8 +79,8 @@ int main(int argc, char *argv[]) {
     }
 
     ThreadPool *poll = new ThreadPool(threads);
-    std::function<void()> func = std::bind(oneClient, msgs, wait);
     for(int i = 0; i < threads; ++i){
+        std::function<void()> func = std::bind(oneClient, msgs, wait, i);
         poll->add(func);
     }
     delete poll;
