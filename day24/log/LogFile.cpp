@@ -2,6 +2,11 @@
 #include "TimeStamp.h"
 #include <string>
 #include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#define MODE (S_IRWXU | S_IRWXG | S_IRWXO) 
+
 LogFile::LogFile(const char* filepath)
     : fp_(::fopen(filepath, "a+")),
       written_bytes_(0),
@@ -11,7 +16,7 @@ LogFile::LogFile(const char* filepath)
         std::string DefaultPath = std::move("../LogFiles/LogFile_" +
                               TimeStamp::Now().TimeStamp::ToFormattedDefaultLogString() +
                               ".log");
-        
+        mkdir("../LogFiles", MODE);
         fp_ = ::fopen(DefaultPath.data(), "a+");
         
     }
