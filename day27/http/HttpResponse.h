@@ -25,7 +25,7 @@ class HttpResponse{
         {
             FILE_TYPE,
             HTML_TYPE,
-        }
+        };
         HttpResponse(bool close_connection);
         ~HttpResponse();
 
@@ -34,7 +34,7 @@ class HttpResponse{
         void SetCloseConnection(bool close_connection);
 
         void SetContentType(const std::string &content_type); 
-        void SetContentLen()
+        void SetContentLen();
         void AddHeader(const std::string &key, const std::string &value); // 设置回应头
 
         void SetBody(const std::string &body);

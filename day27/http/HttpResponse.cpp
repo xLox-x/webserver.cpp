@@ -45,7 +45,7 @@ std::string HttpResponse::message(){
     }else{
         message += ("Connection: Keep-Alive\r\n");
     }
-    if(body){
+    if(!body_.empty()){
         message += ("Content-Length: " + std::to_string(body_.size()) + "\r\n");
     }
     
