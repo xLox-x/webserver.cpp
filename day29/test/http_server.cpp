@@ -68,8 +68,8 @@ std::string BuildFileHtml(){
         //将fileitem中的所有filename替换成
         file += "<tr><td>" + filename + "</td>" +
                 "<td>" +
-                "<a href=\"/download/" + filename + "\">下载</a>" +
-                "<a href=\"/delete/" + filename + "\">删除</a>" +
+                "<a href=\"/download/" + filename + "\">Download</a>" +
+                "<a href=\"/delete/" + filename + "\">Delete</a>" +
                 "</td></tr>" + "\n";
     }
 
@@ -86,7 +86,7 @@ std::string BuildFileHtml(){
 void RemoveFile(const std::string & filename){
     int ret = remove(("../files/" + filename).c_str());
     if(ret != 0){
-        LOG_ERROR << "删除文件 " << filename << " 失败";
+        LOG_ERROR << "Delete file " << filename << " error";
     }
 }
 
